@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors({
   credentials:true,
-  origin:'*',
+  origin:["https://animated-jalebi-1982de.netlify.app", "http://localhost:5173"],
 }))
 
 
