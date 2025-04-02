@@ -9,6 +9,7 @@ const BlogSchema = new Schema({
     type: String,
     required: true,
   },
+
   description: {
     type: String,
     required: [true, "Password is required "],
@@ -31,6 +32,7 @@ const BlogSchema = new Schema({
   },
   image:{
     type:String,
+    require:true
   }
  
 })

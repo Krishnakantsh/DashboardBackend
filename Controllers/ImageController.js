@@ -9,20 +9,19 @@ import asyncHandler from "../Utilities/AsyncHandler.js";
 
 const addImage =  asyncHandler ( async ( req, res) => {
 
-const { title, image   } = req.body;
+const { title } = req.body;
 
 
-if(!title || !image) {
+if(!title) {
   throw new ApiError(404, "All fields are required !!! ");
 }
 
 const createdImage = new ImageModel({
 
    title:title,
-   image:image,
+   image:req.file.path,
    createAt:new Date(),
    user:req.admin._id
-
 })
 
 const savedImage = await createdImage.save();

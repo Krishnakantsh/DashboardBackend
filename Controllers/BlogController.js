@@ -8,21 +8,27 @@ import asyncHandler from "../Utilities/AsyncHandler.js";
 
 const addNewBlog =  asyncHandler ( async ( req, res) => {
 
-  const { title, image , description , video  } = req.body;
+  const { title,  description  } = req.body;
   
+  console.log(" title : ", title);
+  console.log(" description  : ", description);
+  console.log(" file : ", req.file);
   
-  if(!title || !image  || !description ) {
+  if(!title || !description ) {
     throw new ApiError(404, "All fields are required !!! ");
+  }
+
+  if (!req.file) {
+    throw new ApiError(400, "Image is required!");
   }
   
   const createdBlog = new Blog({
      title:title,
-     image:image,
+     image:req.file.path,
      createAt:new Date(),
      user:req.admin._id,
      watching:0,
-     video:video,
-     description:description
+     description:description,
   })
   
   const savedBlog = await createdBlog.save();
@@ -33,7 +39,6 @@ const addNewBlog =  asyncHandler ( async ( req, res) => {
   
   res.status(200)
   .json(savedBlog)
-  
   })
 
 
